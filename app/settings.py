@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'djoser',
     #custom app
     'accounts',
+    'user_profile',
 ]
 
 MIDDLEWARE = [
