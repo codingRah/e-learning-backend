@@ -4,7 +4,7 @@ from accounts.models import User
 
 class StudentProfile(models.Model):
     """This models will store all information about the students"""
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone = models.CharField(max_length=50)
