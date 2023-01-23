@@ -5,9 +5,10 @@ from accounts.models import User
 class StudentProfile(models.Model):
     """This models will store all information about the students"""
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
+    first_name = models.CharField(max_length=255, null=True)
+    last_name = models.CharField(max_length=255, null=True)
     phone = models.CharField(max_length=50)
+    slug = models.SlugField(null=False, unique=True)
     profile_pc = models.ImageField(upload_to='Profile_images', null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
