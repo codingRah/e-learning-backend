@@ -22,7 +22,7 @@ class UserAccountManager(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    username  = models.CharField(max_length=255)
+    username  = models.CharField(max_length=255, unique=True)
     date_joined = models.DateTimeField(default=timezone.now)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
