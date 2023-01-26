@@ -7,3 +7,7 @@ class UserProfileImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfileImage
         fields = ('name', 'user')
+
+        extra_kwargs = {
+            'user': {'write_only': True}
+        }
