@@ -10,7 +10,7 @@ class UserProfileImageView(APIView):
     
     def get(self, request):
         profile_pic = UserProfileImage.objects.all()
-        serializer = UserProfileImageSerializer(profile_pic)
+        serializer = UserProfileImageSerializer(profile_pic, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def post(self, request):
