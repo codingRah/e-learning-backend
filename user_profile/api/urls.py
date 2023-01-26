@@ -12,6 +12,5 @@ urlpatterns = [
     path('profile-pic/<int:pk>/', user_profile_pic_view.get_user_profile_image, name="get-profile-pic"),
     path('profile-pic/update/<int:pk>/', user_profile_pic_view.update_user_profile_image, name="update-profile-pic"),
     path('profile-pic/delete/<int:pk>/', user_profile_pic_view.delete_user_profile_image, name="delete-profile-pic"),
-    # path('profile-pic/<int:pk>/', UserProfileImageView.as_view(), name="profile-pic"),
 ]
 
