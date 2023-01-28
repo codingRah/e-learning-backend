@@ -1,6 +1,13 @@
 from django.urls import path, include
 from .views import user_profile_pic_view
 from .views import student_profile_view
+from .views import user_address_view
+from rest_framework.routers import DefaultRouter
+
+
+router = DefaultRouter()
+router.register('province', user_address_view.ProvinceView, basename="user-province")
+router.register('address', user_address_view.UserAddressView, basename="user-address")
 
 
 urlpatterns = [
@@ -12,5 +19,6 @@ urlpatterns = [
     path('profile-pic/<int:pk>/', user_profile_pic_view.get_user_profile_image, name="get-profile-pic"),
     path('profile-pic/update/<int:pk>/', user_profile_pic_view.update_user_profile_image, name="update-profile-pic"),
     path('profile-pic/delete/<int:pk>/', user_profile_pic_view.delete_user_profile_image, name="delete-profile-pic"),
+    path('', include(router.urls)),
 ]
 
