@@ -15,4 +15,4 @@ class UserAddressSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserAddress
-        fields = ('country', 'province', 'details')
+        fields = ('user', 'country', 'province', 'details')
