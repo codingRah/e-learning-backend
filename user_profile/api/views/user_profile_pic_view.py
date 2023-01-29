@@ -39,7 +39,10 @@ def get_user_profile_image(request, pk):
 def update_user_profile_image(request, pk):
     """Update user profile image"""
     user_profile_image = UserProfileImage.objects.get(user=pk)
-    os.remove(os.path.join(settings.MEDIA_ROOT, str(user_profile_image.name)))
+    try:
+        os.remove(os.path.join(settings.MEDIA_ROOT, str(user_profile_image.name)))
+    except FileNotFoundError:
+        pass
     serializer = UserProfileImageSerializer(user_profile_image, data=request.data)
     if serializer.is_valid():
         serializer.save()
