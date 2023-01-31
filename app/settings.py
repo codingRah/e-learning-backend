@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     #custom app
     'accounts',
     'user_profile',
+    'course',
 ]
 
 MIDDLEWARE = [
