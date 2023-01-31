@@ -83,3 +83,8 @@ class UserAddressView(viewsets.ViewSet):
         address = get_object_or_404(self.queryset, pk=pk)
         address.delete()
         return Response({"message": "Address deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
+    
+    def get_user_address_with_user_id(self, request, user_id=None):
+        """get user address with user_id"""
+        serializer = UserAddressSerializer(self.queryset, user=user_id) 
+        return Response(serializer.data, status=status.HTTP_200_OK)
