@@ -37,7 +37,7 @@ class ProvinceView(viewsets.ViewSet):
 
     def partial_update(self, request, pk=None):
         province = get_object_or_404(self.queryset, pk=pk)
-        serializer = ProvinceSerializer(province, data=request.data)
+        serializer = ProvinceSerializer(province, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -73,6 +73,15 @@ class UserAddressView(viewsets.ViewSet):
     def update(self, request, pk=None):
         address = get_object_or_404(self.queryset, pk=pk)
         serializer = UserAddressSerializer(address, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    def partial_update(self, request, pk=None):
+        address = get_object_or_404(self.queryset, pk=pk)
+        serializer = UserAddressSerializer(address, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)

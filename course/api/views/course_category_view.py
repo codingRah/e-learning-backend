@@ -40,7 +40,7 @@ class CourseCategoryView(viewsets.ModelViewSet):
 
     def partial_update(self, request, pk=None):
         course_category = get_object_or_404(self.queryset, pk=pk)
-        serializer = CourseCategorySerializer(course_category, data=request.data)
+        serializer = CourseCategorySerializer(course_category, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -86,7 +86,7 @@ class LanguageView(viewsets.ModelViewSet):
 
     def partial_update(self, request, pk=None):
         language = get_object_or_404(self.queryset, pk=pk)
-        serializer = LanguageSerializer(language, data=request.data)
+        serializer = LanguageSerializer(language, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -132,7 +132,7 @@ class CourseTypeView(viewsets.ModelViewSet):
 
     def partial_update(self, request, pk=None):
         course_type = get_object_or_404(self.queryset, pk=pk)
-        serializer = CourseTypeSerializer(course_type, data=request.data)
+        serializer = CourseTypeSerializer(course_type, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
