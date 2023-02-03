@@ -10,44 +10,54 @@ from rest_framework.response import Response
 from instructor.api.models import instructor_models
 from rest_framework import status
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+
 
 
 class InstructorListCreateView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.Instructor.objects.all()
     serializer_class = InstructorSerializer
 
 
 class InstructorUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.Instructor.objects.all()
     serializer_class = InstructorSerializer
 
 
 class InstructorEducationListCreateView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.InstructorEducation.objects.all()
     serializer_class = InstructorEducationSerializer
 
 
 class InstructorEducationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.InstructorEducation.objects.all()
     serializer_class = InstructorEducationSerializer
 
 
 class InstructorExprienceListCreateView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.InstructorExprience.objects.all()
     serializer_class = InstructorExprienceSerializer
 
 
 class InstructorExprienceUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.InstructorExprience.objects.all()
     serializer_class = InstructorExprienceSerializer
 
 
 class InstructorIdCartListCreateView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.InstructorIdCart.objects.all()
     serializer_class = InstructorIdCartSerializer
 
 
 class InstructorIdCartUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
     queryset = instructor_models.InstructorIdCart.objects.all()
     serializer_class = InstructorIdCartSerializer
 
