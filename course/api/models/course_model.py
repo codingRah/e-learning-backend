@@ -25,3 +25,6 @@ class Enrollment(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     joined_date = models.DateField()
 
+    def __str__(self) -> str:
+        return f'{self.course} - {self.student} - {self.joined_date}'
+

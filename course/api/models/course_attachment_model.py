@@ -7,3 +7,6 @@ class CourseAttachment(models.Model):
     file_type = models.CharField(max_length=50)
     file_size = models.IntegerField()
     course_chapter = models.ForeignKey(CourseChapter, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.name}'

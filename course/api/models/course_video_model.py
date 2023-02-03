@@ -7,3 +7,6 @@ class CourseVideo(models.Model):
     video_size = models.IntegerField()
     video_type = models.CharField(max_length=50)
     chapter = models.ForeignKey(CourseChapter, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return f'{self.name}'
