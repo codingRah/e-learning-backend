@@ -33,21 +33,22 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    "django.contrib.admin",
-    "django.contrib.auth",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    # 3rd app
-    "rest_framework",
-    "rest_framework.authtoken",
-    "corsheaders",
-    "djoser",
-    # custom app
-    "accounts",
-    "user_profile",
-    "instructor",
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    #3rd app
+    'rest_framework',
+    'rest_framework.authtoken',
+    'corsheaders',
+    'djoser',
+    #custom app
+    'accounts',
+    'user_profile',
+    'course',
+    'instructor',
 ]
 
 MIDDLEWARE = [
@@ -93,12 +94,12 @@ DATABASES = {
     }
 }
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.gmail.com"
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "devtest00028@gmail.com"
-EMAIL_HOST_PASSWORD = "jtlixjxdugutndhl"
+EMAIL_HOST_USER = 'b89fc38e109879'
+EMAIL_HOST_PASSWORD = 'ae3d22d7b5c5ab'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
