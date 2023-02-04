@@ -5,10 +5,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken')),
-    path('auth/', include('djoser.urls.jwt')),
+    path("admin/", admin.site.urls),
+    path("auth/", include("djoser.urls")),
+    path("auth/", include("djoser.urls.authtoken")),
+    path("auth/", include("djoser.urls.jwt")),
+    path("instructor/", include("instructor.urls")),
     path('user/', include('accounts.urls')),
     path('user/', include('user_profile.api.urls')),
     path('course/', include('course.api.urls')),
