@@ -1,5 +1,5 @@
 from django.db import models
-from .course_chapter_model import CourseChapter
+from .course_part_model import CoursePart
 
 
 class CourseAssignment(models.Model):

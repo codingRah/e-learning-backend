@@ -7,7 +7,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ['title', 'description', 'category', 'course_type', 'language', 'created_by']
+        fields = ['title', 'description', 'category', 'start_date', 'end_date', 'start_time', 'end_date', 'course_type', 'language', 'created_by']
 
         extra_kwargs = {
             'created_by': {'write_only': True}
