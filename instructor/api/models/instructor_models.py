@@ -7,6 +7,11 @@ class Instructor(models.Model):
         ("male", "male"),
         ("female", "female"),
     )
+    STATUS = (
+        ("pending", "pending"),
+        ("active", "active"),
+        ("deactive", "deactive"),
+    )
     user_id = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -15,6 +20,7 @@ class Instructor(models.Model):
     phone = models.CharField(max_length=15)
     dob = models.DateField(null=True, blank=True)
     bio = models.CharField(max_length=100, null=True, blank=True)
+    status = models.CharField(max_length=50, choices=STATUS, null=True , blank=True)
     image = models.ImageField(upload_to="instuctor/image", null=True, blank=True)
 
     def __str__(self) -> str:
