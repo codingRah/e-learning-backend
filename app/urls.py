@@ -12,6 +12,6 @@ urlpatterns = [
     path("instructor/", include("instructor.urls")),
     path('user/', include('accounts.urls')),
     path('user/', include('user_profile.api.urls')),
-    # path('course/', include('course.api.urls')),
+    path('course/', include('course.api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 # urlpatterns += [re_path(r'^.*', TemplateView.as_view(template_name='index.html'))]
