@@ -23,6 +23,7 @@ class CourseView(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def create(self, request):
+        request.data['created_by'] = request.user.id
         serializer = CourseSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()

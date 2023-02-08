@@ -2,6 +2,8 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
+from rest_framework.exceptions import NotFound
+from rest_framework.decorators import action
 from rest_framework.viewsets import ModelViewSet
 from course.api.models.course_model import Enrollment
 from course.api.serializers.enrollment_serializer import EnrollmentSerializer
@@ -50,3 +52,14 @@ class EnrollmentView(ModelViewSet):
         enrollment = get_object_or_404(self.queryset, pk=pk)
         enrollment.delete()
         return Response({"message": "Enrollment deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
+    
+    @action(detail=True, methods=['GET'], url_name="Get My Enrolled Courses", url_path="get-my-enrolled-courses")
+    def get_my_enrolled_courses(self, request, pk=None, *args, **kwargs):
+        user_id = request.user.id
+        try:
+            my_courses = Enrollment.objects.filter(student=user_id)
+        except:
+            raise NotFound("You haven't any enrolled Course")
+        serializer = EnrollmentSerializer(my_courses, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
