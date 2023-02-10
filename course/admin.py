@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .api.models.assignment_model import CourseAssignment
 
-# Register your models here.
+
+admin.site.register(CourseAssignment)
