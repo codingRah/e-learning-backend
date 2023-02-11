@@ -13,7 +13,6 @@ from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 
-
 class InstructorListCreateView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = instructor_models.Instructor.objects.all()
@@ -31,17 +30,52 @@ class InstructorEducationListCreateView(generics.ListCreateAPIView):
     queryset = instructor_models.InstructorEducation.objects.all()
     serializer_class = InstructorEducationSerializer
 
-
-class InstructorEducationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
-    queryset = instructor_models.InstructorEducation.objects.all()
-    serializer_class = InstructorEducationSerializer
+    # for i in range(serializer_class):
 
 
-class InstructorExprienceListCreateView(generics.ListCreateAPIView):
-    permission_classes = (IsAuthenticated,)
-    queryset = instructor_models.InstructorExprience.objects.all()
-    serializer_class = InstructorExprienceSerializer
+
+# class InstructorEducationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = instructor_models.InstructorEducation.objects.all()
+#     serializer_class = InstructorEducationSerializer
+
+
+# class InstructorExprienceListCreateView(generics.ListCreateAPIView):
+#     permission_classes = (IsAuthenticated,)
+#     queryset = instructor_models.InstructorExprience.objects.all()
+#     serializer_class = InstructorExprienceSerializer
+
+def instructor_exprience_list_create_views(request):
+    
+    if request.method == 'GET':
+
+        instructor = instructor_models.InstructorExprience.objects.all()
+        serializer = InstructorExprienceSerializer(instructor, many=True)
+        return Response(serializer.data)
+    if request.method == 'POST':
+        serializer = InstructorExprienceSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+
+def instructor_exprience_update_create_views(request, pk):
+    if request.method == 'GET':
+
+        instructor = instructor_models.InstructorExprience.objects.all()
+        serializer = InstructorExprienceSerializer(instructor, many=True)
+        return Response(serializer.data)
+    if  request.method == 'PUT':   
+        instructor = instructor_models.InstructorExprience.objects.get(pk=pk)
+        serializer = InstructorExprienceSerializer(data=request.data, instance=instructor)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+    if request.method == 'DELETE':
+        instructor = instructor_models.InstructorExprience.objects.get(pk=pk)
+        instructor.delete()
+        return Response({'success': 'the instructor exprience deleted'} , status=status.HTTP_204_NO_CONTENT)
 
 
 class InstructorExprienceUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
@@ -62,55 +96,3 @@ class InstructorIdCartUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = InstructorIdCartSerializer
 
 
-# @api_view()
-# def instructor_list_view(request):
-#     instructor = instructor_models.Instructor.objects.all()
-#     serializer = InstructorSerializer(instructor, many=True)
-
-#     return Response(serializer.data)
-
-
-# @api_view(["POST"])
-# def instructor_create_view(request):
-
-#     serializer = InstructorSerializer(data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(
-#             serializer.data,
-#             {"Success": "instructor successfully created"},
-#             status=status.HTTP_200_OK,
-#         )
-#     else:
-#         return Response({"Error": "instructor not created"})
-
-# @api_view(['GET','PUT', 'DELETE'])
-# def instructor_update_view(request, pk):
-
-#     if request.method == 'GET':
-#         try:
-#             instructor = instructor_models.Instructor.objects.get(pk=pk)
-#         except instructor_models.Instructor.DoesNotExist:
-#             return Response({'error': 'the instructor does nor exist'})
-
-#         serializer = InstructorSerializer(instructor)
-#         return Response(serializer.data)
-
-#     if request.method == 'PUT':
-#         instructor = instructor_models.Instructor.objects.get(pk=pk)
-#         serializer = InstructorSerializer(instructor, data=request.data)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             return Response({"Error": "instructor not update"}, status=status.HTTP_400_BAD_REQUEST )
-
-#     if request.method == 'DELETE':
-#         instructor = instructor_models.Instructor.objects.get(pk=pk)
-#         instructor.delete()
-#         return Response({'success': 'instructor deleted successfull'})
-
-
-# class delete_view(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = instructor_models.Instructor.objects.all()
-#     serializer_class = InstructorSerializer

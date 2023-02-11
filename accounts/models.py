@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
 from django.utils import timezone
 
 
+
 class UserAccountManager(BaseUserManager):
     def create_user(self, email, username, user_type=None, password=None):
         if not email:
