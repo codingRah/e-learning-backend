@@ -53,8 +53,8 @@ class EnrollmentView(ModelViewSet):
         enrollment.delete()
         return Response({"message": "Enrollment deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
     
-    @action(detail=True, methods=['GET'], url_name="Get My Enrolled Courses", url_path="get-my-enrolled-courses")
-    def get_my_enrolled_courses(self, request, pk=None, *args, **kwargs):
+    @action(detail=False, methods=['GET'], url_name="Get My Enrolled Courses")
+    def get_my_enrolled_courses(self, request):
         user_id = request.user.id
         try:
             my_courses = Enrollment.objects.filter(student=user_id)

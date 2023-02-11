@@ -2,16 +2,17 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import viewsets
 from django.shortcuts import get_object_or_404
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from course.api.models.course_part_model import CoursePart
 from course.api.serializers.course_part_serializer import CoursePartSerializer
+from instructor.api.permission import IsInstructor
 
 
 class CoursePartView(viewsets.ModelViewSet):
     """view for course parts"""
     serializer_class = CoursePartSerializer
     queryset = CoursePart.objects.all()
-    permission_classes = (IsAuthenticated, )
+    permission_classes = [IsAuthenticated, IsInstructor | IsAdminUser]
 
     def list(self, request):
         serializer = CoursePartSerializer(self.queryset, many=True)
