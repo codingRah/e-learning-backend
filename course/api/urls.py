@@ -4,8 +4,12 @@ from .views.course_category_view import CourseCategoryView, LanguageView, Course
 from .views.course_view import CourseView
 from .views.enrollment_view import EnrollmentView
 from .views.course_part_view import CoursePartView
-from .views.course_assignment_view import assignment_list_create_views, assignment_update_delete_views
-from .views.comment_views import course_comment_list_create_views,course_comment_update_delete_views
+from .views.course_assignment_view import (get_single_assignment_view, 
+                                           get_all_assignment_view, 
+                                           create_assignment_view, 
+                                           update_assignment_view, 
+                                           delete_assignment_view)
+from .views.comment_views import CourseCommentView
 
 
 router = DefaultRouter()
@@ -16,12 +20,16 @@ router.register('course', CourseView, basename="course")
 router.register('enrollment', EnrollmentView, basename="course-enrollment")
 router.register('course-part', CoursePartView, basename="course-part")
 router.register('enrollment', EnrollmentView, basename="course-enrollment")
-router.register('assignment-list-create', assignment_list_create_views, basename="assignment-list-create")
-router.register('assignment-update-delete', assignment_update_delete_views, basename="assignment-update-delete")
-router.register('comment-list-create', course_comment_list_create_views, basename="comment-list-create")
-router.register('comment-update-delete', course_comment_update_delete_views, basename="comment-update-delete")
+router.register('comment', CourseCommentView, basename="course-comment")
 
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('assignment/', include([
+        path('', get_all_assignment_view, name="assignment-list"),
+        path('create/', create_assignment_view, name="assignment-create"),
+        path('<int:pk>/', get_single_assignment_view, name="assignment-details"),
+        path('update/<int:pk>/', update_assignment_view, name="assignment-update"),
+        path('delete/<int:pk>/', delete_assignment_view, name="assignment-delete"),
+    ])),
 ]
