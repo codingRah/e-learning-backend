@@ -30,20 +30,17 @@ class InstructorEducationListCreateView(generics.ListCreateAPIView):
     queryset = instructor_models.InstructorEducation.objects.all()
     serializer_class = InstructorEducationSerializer
 
-    # for i in range(serializer_class):
+
+class InstructorEducationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = instructor_models.InstructorEducation.objects.all()
+    serializer_class = InstructorEducationSerializer
 
 
-
-# class InstructorEducationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = instructor_models.InstructorEducation.objects.all()
-#     serializer_class = InstructorEducationSerializer
-
-
-# class InstructorExprienceListCreateView(generics.ListCreateAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = instructor_models.InstructorExprience.objects.all()
-#     serializer_class = InstructorExprienceSerializer
+class InstructorExprienceListCreateView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = instructor_models.InstructorExprience.objects.all()
+    serializer_class = InstructorExprienceSerializer
 
 def instructor_exprience_list_create_views(request):
     
