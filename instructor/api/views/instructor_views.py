@@ -45,6 +45,8 @@ class InstructorEducationListCreateView(generics.ListCreateAPIView):
 #     queryset = instructor_models.InstructorExprience.objects.all()
 #     serializer_class = InstructorExprienceSerializer
 
+
+@api_view(['GET', 'POST'])
 def instructor_exprience_list_create_views(request):
     
     if request.method == 'GET':
@@ -58,7 +60,7 @@ def instructor_exprience_list_create_views(request):
             serializer.save()
             return Response(serializer.data)
 
-
+@api_view(['GET','PUT','DELETE'])
 def instructor_exprience_update_create_views(request, pk):
     if request.method == 'GET':
 
