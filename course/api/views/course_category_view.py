@@ -57,7 +57,7 @@ class LanguageView(viewsets.ModelViewSet):
     """view for course languages"""
     serializer_class = LanguageSerializer
     queryset = Language.objects.all()
-    permission_classes = (IsAuthenticated)
+    permission_classes = (IsAuthenticated, )
 
     def list(self, request):
         serializer = LanguageSerializer(self.queryset, many=True)
