@@ -3,30 +3,30 @@ from instructor.api.views import instructor_views
 
 urlpatterns = [
     # url for instructor
-    path("create/", instructor_views.InstructorListCreateView.as_view()),
-    path("update/<str:pk>/", instructor_views.InstructorUpdateDeleteView.as_view()),
+    path("create-list/", instructor_views.InstructorListCreateView.as_view()),
+    path("update-delete/<str:pk>/", instructor_views.InstructorUpdateDeleteView.as_view()),
     # url for instructor education
     path(
-        "education/create/",
+        "education/create-list/",
         instructor_views.InstructorEducationListCreateView.as_view(),
     ),
     path(
-        "education/update/<str:pk>/",
+        "education/update-delete/<str:pk>/",
         instructor_views.InstructorEducationUpdateDeleteView.as_view(),
     ),
     # url for instructor exprience
     path(
-        "exprience/create/",
-        instructor_views.InstructorExprienceListCreateView.as_view(),
+        "experience/create-list/",
+        instructor_views.InstructorExperienceListCreateView.as_view(),
     ),
     path(
-        "exprience/update/<str:pk>/",
-        instructor_views.InstructorExprienceUpdateDeleteView.as_view(),
+        "experience/update-delete/<str:pk>/",
+        instructor_views.InstructorExperienceUpdateDeleteView.as_view(),
     ),
     # url for instructor IDcart
-    path("idcart/create/", instructor_views.InstructorIdCartListCreateView.as_view()),
+    path("idcart/create-list/", instructor_views.InstructorIdCartListCreateView.as_view()),
     path(
-        "idcart/update/<str:pk>/",
+        "idcart/update-delete/<str:pk>/",
         instructor_views.InstructorIdCartUpdateDeleteView.as_view(),
     ),
 ]
