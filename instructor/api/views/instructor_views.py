@@ -72,7 +72,7 @@ def instructor_experience_update_create_views(request, pk):
     if request.method == 'DELETE':
         instructor = instructor_models.InstructorExperience.objects.get(pk=pk)
         instructor.delete()
-        return Response({'success': 'the instructor exprience deleted'} , status=status.HTTP_204_NO_CONTENT)
+        return Response({'success': 'the instructor experience deleted'} , status=status.HTTP_204_NO_CONTENT)
 
 
 class InstructorExperienceUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
