@@ -3,8 +3,11 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import action
 from course.api.serializers.comment_serializer import CommentSerializer
+from course.api.serializers.comment_serializer import CourseCommentSerializer
 from course.api.models.comments_model import CourseComment
+from rest_framework.exceptions import NotFound
 
 
 class CourseCommentView(ModelViewSet):
@@ -51,4 +54,15 @@ class CourseCommentView(ModelViewSet):
         comment = get_object_or_404(self.queryset, pk=pk)
         comment.delete()
         return Response({"message": "comment deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
- 
+    
+    @action(detail=False, methods=['GET'], url_name='get-a-course-comment')
+    def get_a_course_comments(self, request, *args, **kwargs):
+        if request.GET.get('course_id'):
+            try:
+                all_comments_of_a_course = CourseComment.objects.filter(course_id=request.GET.get('course_id'))
+            except CourseComment.DoesNotExist:
+                return NotFound("the course doesn't have any comment")
+            serializer = CourseCommentSerializer(all_comments_of_a_course, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        else:
+            return Response("The course id params not provided!!", status=status.HTTP_406_NOT_ACCEPTABLE)
