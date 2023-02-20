@@ -10,6 +10,7 @@ from .views.course_assignment_view import (get_single_assignment_view,
                                            update_assignment_view, 
                                            delete_assignment_view)
 from .views.comment_views import CourseCommentView
+from .views.course_attachment_view import AttachmentView
 
 
 router = DefaultRouter()
@@ -19,7 +20,6 @@ router.register('course-type', CourseTypeView, basename="course-type")
 router.register('course', CourseView, basename="course")
 router.register('enrollment', EnrollmentView, basename="course-enrollment")
 router.register('course-part', CoursePartView, basename="course-part")
-router.register('enrollment', EnrollmentView, basename="course-enrollment")
 router.register('comment', CourseCommentView, basename="course-comment")
 
 
@@ -32,4 +32,5 @@ urlpatterns = [
         path('update/<int:pk>/', update_assignment_view, name="assignment-update"),
         path('delete/<int:pk>/', delete_assignment_view, name="assignment-delete"),
     ])),
+    path('attachment/', AttachmentView.as_view(), name='attachement'),
 ]
