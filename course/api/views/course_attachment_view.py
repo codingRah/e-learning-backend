@@ -27,7 +27,6 @@ class AttachmentView(APIView):
         extension = uploaded_file.name.split('.')[-1]
         request.data['file_type'] = extension
         request.data['file_size'] = uploaded_file.size
-        print('>>>>>>>>>>>>>>>>>>>>>>>>>>', request.data['part'])
         serializer = AttachmentSerializer(data=request.data)
         if serializer.is_valid():
             #uploading file is not implemented!

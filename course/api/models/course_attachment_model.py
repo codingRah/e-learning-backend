@@ -7,8 +7,8 @@ class CourseAttachment(models.Model):
     name = models.FileField()
     file_type = models.CharField(max_length=50)
     file_size = models.IntegerField()
-    part = models.ForeignKey(CoursePart, on_delete=models.CASCADE)
-    assignment = models.ForeignKey(CourseAssignment, on_delete=models.CASCADE, related_name='attachments')
+    part = models.ForeignKey(CoursePart, on_delete=models.CASCADE, null=True, blank=True)
+    assignment = models.ForeignKey(CourseAssignment, on_delete=models.CASCADE, related_name='attachments', null=True, blank=True)
 
     def __str__(self) -> str:
         return f'{self.name}'

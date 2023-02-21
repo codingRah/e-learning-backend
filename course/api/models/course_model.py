@@ -16,6 +16,7 @@ class Course(models.Model):
     category = models.ForeignKey(CourseCategory, on_delete=models.SET_NULL, null=True, blank=True)
     course_type = models.ForeignKey(CourseType, on_delete=models.SET_NULL, null=True, blank=True)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    files = models.CharField(max_length=255)
     enrolleds = models.ManyToManyField(User, through="Enrollment")
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_by")
 
