@@ -1,14 +1,21 @@
 from rest_framework import serializers
 from course.api.models.course_model import Course
-from accounts.models import User
 from course.api.serializers.comment_serializer import CommentSerializer
 from django.conf import settings
+
 import os
 from datetime import datetime
 
 
 class CourseSerializer(serializers.ModelSerializer):
     """course serializer"""
+
+    def validate_title(self, value):
+        if len(value) < 5:
+            raise serializers.ValidationError("The course title should be more than 5 characters")
+        else:
+            return value
+        
 
     comments = CommentSerializer(many=True, read_only=True)
     class Meta:
@@ -20,7 +27,11 @@ class CourseSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        course_title = validated_data.pop('title')
-        created_user = User.objects.get(pk=validated_data.pop('created_by').id).username
-        os.mkdir(os.path.join(settings.MEDIA_ROOT, f'{course_title}-{datetime.now().date()}-{created_user}'))
+        course_title = validated_data['title']
+        created_user = validated_data.pop('created_by').username
+        # try:
+        #     os.mkdir(os.path.join(settings.MEDIA_ROOT, f'{course_title}-{datetime.now().date()}-{created_user}'))
+        # except OSError as e:
+        #     raise serializers.ValidationError("Something went wrong!")
+        validated_data['files'] = f'{course_title}-{datetime.now().date()}-{created_user}'
         return Course.objects.create(**validated_data)
