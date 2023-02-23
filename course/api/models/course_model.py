@@ -21,7 +21,6 @@ class Course(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_by")
 
     class Meta:
-        db_table = 'course_course'
         constraints = [
             models.UniqueConstraint(fields=['title', 'created_by'], name='unique_course_title_for_a_user')
         ]

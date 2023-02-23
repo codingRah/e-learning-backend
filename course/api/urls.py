@@ -11,6 +11,7 @@ from .views.course_assignment_view import (get_single_assignment_view,
                                            delete_assignment_view)
 from .views.comment_views import CourseCommentView
 from .views.course_attachment_view import AttachmentView
+from .views.course_feedback_view import CourseFeedbackView
 
 
 router = DefaultRouter()
@@ -33,4 +34,5 @@ urlpatterns = [
         path('delete/<int:pk>/', delete_assignment_view, name="assignment-delete"),
     ])),
     path('attachment/', AttachmentView.as_view(), name='attachement'),
+    path('feedback/', CourseFeedbackView.as_view(), name='feedback'),
 ]
