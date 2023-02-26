@@ -38,9 +38,14 @@ class CourseSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         course_title = validated_data['title']
         created_user = validated_data['created_by'].username
-        # try:
-        #     os.mkdir(os.path.join(settings.MEDIA_ROOT, f'{course_title}-{datetime.now().date()}-{created_user}'))
-        # except OSError as e:
-        #     raise serializers.ValidationError("Something went wrong!")
+        try:
+            os.mkdir(os.path.join(settings.MEDIA_ROOT, f'{course_title}-{datetime.now().date()}-{created_user}'))
+        except OSError as e:
+            raise serializers.ValidationError("Something went wrong!")
         validated_data['files'] = f'{course_title}-{datetime.now().date()}-{created_user}'
+        try:
+            os.mkdir(os.path.join(os.path.join(settings.MEDIA_ROOT, validated_data['files']), 'attachments'))
+            os.mkdir(os.path.join(os.path.join(settings.MEDIA_ROOT, validated_data['files']), 'videos'))
+        except OSError as e:
+            raise serializers.ValidationError("Something went wrong!")
         return Course.objects.create(**validated_data)

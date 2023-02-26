@@ -34,5 +34,7 @@ urlpatterns = [
         path('delete/<int:pk>/', delete_assignment_view, name="assignment-delete"),
     ])),
     path('attachment/', AttachmentView.as_view(), name='attachement'),
+    path('attachment/<int:pk>/', AttachmentView.as_view(), name='attachement-details'),
     path('feedback/', CourseFeedbackView.as_view(), name='feedback'),
+    path('feedback/<int:pk>/', CourseFeedbackView.as_view(), name='feedback-details'),
 ]
