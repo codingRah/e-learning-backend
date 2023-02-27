@@ -41,6 +41,8 @@ class InstructorExperienceListCreateView(generics.ListCreateAPIView):
     permission_classes = (IsAuthenticated,)
     queryset = instructor_models.InstructorExperience.objects.all()
     serializer_class = InstructorExperienceSerializer
+
+    
 @api_view(['GET','POST'])
 def instructor_experience_list_create_views(request):
     
