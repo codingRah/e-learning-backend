@@ -42,15 +42,15 @@ class InstructorEducation(models.Model):
         return f"{self.instructor_id.first_name} {self.title}"
 
 
-class InstructorExprience(models.Model):
+class InstructorExperience(models.Model):
     instructor_id = models.ForeignKey(
-        Instructor, on_delete=models.CASCADE, related_name="exprience"
+        Instructor, on_delete=models.CASCADE, related_name="experience"
     )
     organization = models.CharField(max_length=100)
     position = models.CharField(max_length=100)
     start_date = models.DateField()
     finish_date = models.DateField()
-    documentation = models.CharField(max_length=100)
+    documentation = models.ImageField(upload_to="instructor/documents", null=True, blank=True)
     description = models.CharField(max_length=100)
 
     def __str__(self) -> str:
@@ -60,10 +60,10 @@ class InstructorExprience(models.Model):
 class InstructorIdCart(models.Model):
     instructor_id = models.OneToOneField(Instructor, on_delete=models.CASCADE)
     cart_type = models.CharField(max_length=100)
-    passport_front = models.ImageField(upload_to="instructor-passport/frant")
-    passport_back = models.ImageField(upload_to="instructor-passport/back")
-    id_front = models.ImageField(upload_to="instructor-id/front")
-    id_back = models.ImageField(upload_to="instructor-id/back")
+    passport_front = models.ImageField(upload_to="instructor-passport/frant", null=True, blank=True)
+    passport_back = models.ImageField(upload_to="instructor-passport/back", null=True, blank=True)
+    id_front = models.ImageField(upload_to="instructor-id/front", null=True, blank=True)
+    id_back = models.ImageField(upload_to="instructor-id/back", null=True, blank=True)
 
     def __str__(self) -> str:
         return self.cart_type
