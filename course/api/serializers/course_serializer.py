@@ -46,6 +46,7 @@ class CourseSerializer(serializers.ModelSerializer):
         try:
             os.mkdir(os.path.join(os.path.join(settings.MEDIA_ROOT, validated_data['files']), 'attachments'))
             os.mkdir(os.path.join(os.path.join(settings.MEDIA_ROOT, validated_data['files']), 'videos'))
+            os.mkdir(os.path.join(os.path.join(settings.MEDIA_ROOT, validated_data['files']), 'assignments'))
         except OSError as e:
             raise serializers.ValidationError("Something went wrong!")
         return Course.objects.create(**validated_data)
