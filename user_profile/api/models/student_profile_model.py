@@ -13,7 +13,6 @@ class StudentProfile(models.Model):
         ("other", "Others")
     )
 
-    profile_pc = models.ImageField(upload_to="Profile_images", null=True)
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     first_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255, null=True)
