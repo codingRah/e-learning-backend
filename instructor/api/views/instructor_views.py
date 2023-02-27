@@ -2,7 +2,7 @@ from django.shortcuts import render
 from instructor.api.serializers.instructor_serializers import (
     InstructorSerializer,
     InstructorEducationSerializer,
-    InstructorExprienceSerializer,
+    InstructorExperienceSerializer,
     InstructorIdCartSerializer,
 )
 from rest_framework.decorators import api_view
@@ -30,60 +30,57 @@ class InstructorEducationListCreateView(generics.ListCreateAPIView):
     queryset = instructor_models.InstructorEducation.objects.all()
     serializer_class = InstructorEducationSerializer
 
-    # for i in range(serializer_class):
+
+class InstructorEducationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = instructor_models.InstructorEducation.objects.all()
+    serializer_class = InstructorEducationSerializer
 
 
+class InstructorExperienceListCreateView(generics.ListCreateAPIView):
+    permission_classes = (IsAuthenticated,)
+    queryset = instructor_models.InstructorExperience.objects.all()
+    serializer_class = InstructorExperienceSerializer
 
-# class InstructorEducationUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = instructor_models.InstructorEducation.objects.all()
-#     serializer_class = InstructorEducationSerializer
-
-
-# class InstructorExprienceListCreateView(generics.ListCreateAPIView):
-#     permission_classes = (IsAuthenticated,)
-#     queryset = instructor_models.InstructorExprience.objects.all()
-#     serializer_class = InstructorExprienceSerializer
-
-
-@api_view(['GET', 'POST'])
-def instructor_exprience_list_create_views(request):
+    
+@api_view(['GET','POST'])
+def instructor_experience_list_create_views(request):
     
     if request.method == 'GET':
 
-        instructor = instructor_models.InstructorExprience.objects.all()
-        serializer = InstructorExprienceSerializer(instructor, many=True)
+        instructor = instructor_models.InstructorExperience.objects.all()
+        serializer = InstructorExperienceSerializer(instructor, many=True)
         return Response(serializer.data)
     if request.method == 'POST':
-        serializer = InstructorExprienceSerializer(data=request.data)
+        serializer = InstructorExperienceSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
 
 @api_view(['GET','PUT','DELETE'])
-def instructor_exprience_update_create_views(request, pk):
+def instructor_experience_update_create_views(request, pk):
     if request.method == 'GET':
 
-        instructor = instructor_models.InstructorExprience.objects.all()
-        serializer = InstructorExprienceSerializer(instructor, many=True)
+        instructor = instructor_models.InstructorExperience.objects.all()
+        serializer = InstructorExperienceSerializer(instructor, many=True)
         return Response(serializer.data)
     if  request.method == 'PUT':   
-        instructor = instructor_models.InstructorExprience.objects.get(pk=pk)
-        serializer = InstructorExprienceSerializer(data=request.data, instance=instructor)
+        instructor = instructor_models.InstructorExperience.objects.get(pk=pk)
+        serializer = InstructorExperienceSerializer(data=request.data, instance=instructor)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
 
     if request.method == 'DELETE':
-        instructor = instructor_models.InstructorExprience.objects.get(pk=pk)
+        instructor = instructor_models.InstructorExperience.objects.get(pk=pk)
         instructor.delete()
-        return Response({'success': 'the instructor exprience deleted'} , status=status.HTTP_204_NO_CONTENT)
+        return Response({'success': 'the instructor experience deleted'} , status=status.HTTP_204_NO_CONTENT)
 
 
-class InstructorExprienceUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
+class InstructorExperienceUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthenticated,)
-    queryset = instructor_models.InstructorExprience.objects.all()
-    serializer_class = InstructorExprienceSerializer
+    queryset = instructor_models.InstructorExperience.objects.all()
+    serializer_class = InstructorExperienceSerializer
 
 
 class InstructorIdCartListCreateView(generics.ListCreateAPIView):

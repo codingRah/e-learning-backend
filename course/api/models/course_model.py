@@ -16,8 +16,14 @@ class Course(models.Model):
     category = models.ForeignKey(CourseCategory, on_delete=models.SET_NULL, null=True, blank=True)
     course_type = models.ForeignKey(CourseType, on_delete=models.SET_NULL, null=True, blank=True)
     language = models.ForeignKey(Language, on_delete=models.SET_NULL, null=True, blank=True)
+    files = models.CharField(max_length=255, null=True, blank=True)
     enrolleds = models.ManyToManyField(User, through="Enrollment")
     created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="created_by")
+
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['title', 'created_by'], name='unique_course_title_for_a_user')
+        ]
 
     def __str__(self) -> str:
         return f'{self.title} - {self.created_at}'
@@ -27,7 +33,7 @@ class Enrollment(models.Model):
     """enrollment models"""
     student = models.ForeignKey(User, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    joined_date = models.DateField()
+    joined_date = models.DateField(auto_now_add=True)
 
     def __str__(self) -> str:
         return f'{self.course} - {self.student} - {self.joined_date}'

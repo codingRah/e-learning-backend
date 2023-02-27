@@ -1,0 +1,16 @@
+[
+    {
+        "model": "course.CourseType",
+        "pk": 1,
+        "fields": {
+            "name":"online"
+        }
+    },
+    {
+        "model": "course.CourseType",
+        "pk": 2,
+        "fields": {
+            "name": "offline"
+        }
+    }
+]

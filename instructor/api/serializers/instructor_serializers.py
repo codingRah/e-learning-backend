@@ -3,7 +3,7 @@ from instructor.api.models.instructor_models import (
     Instructor,
     InstructorIdCart,
     InstructorEducation,
-    InstructorExprience,
+    InstructorExperience,
 )
 
 
@@ -14,15 +14,15 @@ class InstructorEducationSerializer(serializers.ModelSerializer):
 
 
 
-class InstructorExprienceSerializer(serializers.ModelSerializer):
+class InstructorExperienceSerializer(serializers.ModelSerializer):
     class Meta:
-        model = InstructorExprience
+        model = InstructorExperience
         fields = "__all__"
 
 
 class InstructorSerializer(serializers.ModelSerializer):
     Education = InstructorEducationSerializer(many=True, read_only=True)
-    exprience = InstructorExprienceSerializer(many=True,read_only=True)
+    exprience = InstructorExperienceSerializer(many=True,read_only=True)
     class Meta:
         model = Instructor
         fields = "__all__"

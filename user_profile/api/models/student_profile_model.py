@@ -6,14 +6,18 @@ from django.shortcuts import get_object_or_404
 
 class StudentProfile(models.Model):
     """This models will store all information about the students"""
-    first_name = models.CharField(max_length=255)
-    last_name = models.CharField(max_length=255)
-    phone = models.CharField(max_length=50)
-    profile_pc = models.ImageField(upload_to="Profile_images", null=True)
+
+    GENDER = (
+        ("male", "Male"),
+        ("female", "Female"),
+        ("other", "Others")
+    )
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     first_name = models.CharField(max_length=255, null=True)
     last_name = models.CharField(max_length=255, null=True)
     phone = models.CharField(max_length=50)
+    gender = models.CharField(max_length=20, choices=GENDER, null=True)
     slug = models.SlugField(null=False, unique=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -1,4 +1,4 @@
-from models.assignment_model import CourseAssignment
+from course.api.models.assignment_model import CourseAssignment
 from rest_framework import serializers
 
 
