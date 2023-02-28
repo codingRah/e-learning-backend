@@ -4,6 +4,9 @@ from .views.course_category_view import CourseCategoryView, LanguageView, Course
 from .views.course_view import CourseView
 from .views.enrollment_view import EnrollmentView
 from .views.course_part_view import CoursePartView
+from .views.prerequiste_view import PrerequisteView
+from .views.goal_view import GoalView
+
 from .views.course_assignment_view import (get_single_assignment_view, 
                                            get_all_assignment_view, 
                                            create_assignment_view, 
@@ -24,6 +27,8 @@ router.register('enrollment', EnrollmentView, basename="course-enrollment")
 router.register('course-part', CoursePartView, basename="course-part")
 router.register('comment', CourseCommentView, basename="course-comment")
 router.register('course-video', CourseVideoView, basename="course-video")
+router.register('pre-course', PrerequisteView, basename="pre-course")
+router.register('goal-course', GoalView, basename="goal-course")
 
 
 urlpatterns = [
