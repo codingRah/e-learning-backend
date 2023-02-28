@@ -5,3 +5,5 @@ from instructor.api.models import instructor_models
 
 admin.site.register(instructor_models.Instructor)
 admin.site.register(instructor_models.InstructorEducation)
+admin.site.register(instructor_models.InstructorExperience)
+admin.site.register(instructor_models.InstructorIdCart)
