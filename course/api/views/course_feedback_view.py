@@ -39,7 +39,7 @@ class CourseFeedbackView(APIView):
         else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-    def put(self, request, pk):
+    def patch(self, request, pk):
         attachment = self.get_object(pk=pk)
         serializer = CourseFeedbackSerializer(data=request.data, instance=attachment, partial=True)
         if serializer.is_valid():

@@ -6,6 +6,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from course.api.models.course_video_model import CourseVideo
 from course.api.serializers.course_video_serializer import CourseVideoSerializer
 from instructor.api.permission import IsInstructor
+import os 
 
 
 class CourseVideoView(ModelViewSet):
@@ -24,6 +25,10 @@ class CourseVideoView(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
     def create(self, request):
+        uploaded_file = request.FILES['file_name']
+        extension = uploaded_file.name.split('.')[-1]
+        request.data['extension'] = extension
+        request.data['video_size'] = uploaded_file.size
         serializer = CourseVideoSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -31,7 +36,12 @@ class CourseVideoView(ModelViewSet):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def update(self, request, pk=None):
+        uploaded_file = request.FILES['file_name']
         course_video = get_object_or_404(self.queryset, pk=pk)
+        extension = uploaded_file.name.split('.')[-1]
+        request.data['extension'] = extension
+        request.data['video_size'] = uploaded_file.size
+        delete_course_video(course_video.file_name.path)
         serializer = CourseVideoSerializer(course_video, data=request.data)
         if serializer.is_valid():
             serializer.save()
@@ -41,6 +51,12 @@ class CourseVideoView(ModelViewSet):
 
     def partial_update(self, request, pk=None):
         course_video = get_object_or_404(self.queryset, pk=pk)
+        if 'file_name' in request.data:
+            uploaded_file = request.FILES['file_name']
+            extension = uploaded_file.name.split('.')[-1]
+            request.data['extension'] = extension
+            request.data['video_size'] = uploaded_file.size
+            delete_course_video(course_video.file_name.path)
         serializer = CourseVideoSerializer(course_video, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
@@ -50,5 +66,15 @@ class CourseVideoView(ModelViewSet):
 
     def destroy(self, request, pk=None):
         course_video = get_object_or_404(self.queryset, pk=pk)
-        course_video.delete()
-        return Response({"message": "Course Video deleted successfully!"}, status=status.HTTP_204_NO_CONTENT)
+        if delete_course_video(course_video.file_name.path):
+            course_video.delete()
+            return Response("Course Video deleted successfully!", status=status.HTTP_204_NO_CONTENT)
+        else:
+            return Response("The Video not found!", status=status.HTTP_204_NO_CONTENT)
+    
+def delete_course_video(path):
+    if os.path.exists(path):
+        os.remove(path)
+        return True
+    else:
+        return False
